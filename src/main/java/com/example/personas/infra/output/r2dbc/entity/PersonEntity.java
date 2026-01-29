@@ -1,16 +1,23 @@
-package com.example.personas.domain.model;
+package com.example.personas.infra.output.r2dbc.entity;
 
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Builder
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
+//@Data
 @NoArgsConstructor
-public class Person {
+@AllArgsConstructor
+@Builder
+@Table("persons")
 
+public class PersonEntity {
+
+    @Id
     private Long id;
     private String documentType;
     private String documentNumber;

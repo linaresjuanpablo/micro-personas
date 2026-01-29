@@ -3,8 +3,11 @@ package com.example.personas.infra.output.mapper;
 import com.example.personas.domain.model.Enrollment;
 import com.example.personas.infra.input.dto.EnrollmentResponse;
 import com.example.personas.infra.output.r2dbc.entity.EnrollmentEntity;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+
+@Component
 
 public class EnrollmentMapper {
 
@@ -14,8 +17,8 @@ public class EnrollmentMapper {
                 enrollment.getPersonId(),
                 enrollment.getBootcampId(),
                 enrollment.getStatus(),
-                enrollment.getStartDate(),
-                enrollment.getEndDate(),
+                enrollment.getLaunchdate(),
+                enrollment.getDuration(),
                 enrollment.getCreatedAt()
         );
     }
@@ -26,8 +29,8 @@ public class EnrollmentMapper {
                 enrollment.getPersonId(),
                 enrollment.getBootcampId(),
                 enrollment.getStatus(),
-                enrollment.getStartDate(),
-                enrollment.getEndDate(),
+                enrollment.getLaunchdate(),
+                enrollment.getDuration(),
                 enrollment.getCreatedAt()
         );
     }
@@ -38,8 +41,8 @@ public class EnrollmentMapper {
                 entity.getPersonId(),
                 entity.getBootcampId(),
                 entity.getStatus(),
-                entity.getStartDate(),
-                entity.getEndDate(),
+                entity.getLaunchdate(),
+                entity.getDuration(),
                 entity.getCreatedAt()
         );
     }
