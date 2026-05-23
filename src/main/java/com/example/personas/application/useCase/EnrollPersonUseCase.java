@@ -46,9 +46,9 @@ public class EnrollPersonUseCase implements EnrollmentCommandPort {
     }
 
     private Mono<Void> validateBootcampDates(BootcampRef bootcamp) {
-        LocalDate start = bootcamp.startDate();
-        LocalDate end = bootcamp.endDate();
-        if (start == null || end == null || end.isBefore(start)) {
+        LocalDate launchdate = bootcamp.launchdate();
+        Integer duration = bootcamp.duration();
+        if (launchdate == null || duration == null ) {
             return Mono.error(new ValidationException("Fechas del bootcamp inválidas"));
         }
         return Mono.empty();
@@ -57,23 +57,29 @@ public class EnrollPersonUseCase implements EnrollmentCommandPort {
         if (activeEnrollments.size() >= MAX_ACTIVE_ENROLLMENTS) {
             return Mono.error(new ValidationException(ACTIV_MAX_INSCRI ));
         }
-        boolean overlaps = activeEnrollments.stream().anyMatch(e ->
-                !bootcamp.endDate().isBefore(e.getStartDate()) &&
-                        !bootcamp.startDate().isAfter(e.getEndDate())
-        );
-        if (overlaps) {
-            return Mono.error(new ValidationException("El bootcamp se solapa con otra inscripción activa"));
+        LocalDate launchDate = bootcamp.launchdate();
+        Integer duration = bootcamp.duration();
+
+        if (launchDate == null || duration == null) {
+            return Mono.error(new ValidationException("Fechas del bootcamp inválidas"));
         }
 
+        boolean sameDate = activeEnrollments.stream()
+                .anyMatch(e -> launchDate.equals(e.getLaunchdate()));
+
+        if (sameDate){
+            return Mono.error(new ValidationException("Ya existe una inscripción activa con la misma fecha de inicio"));
+        }
         return Mono.empty();
+
     }
 
     private Mono<EnrollmentResponse> saveEnrollment(EnrollmentRequest request, BootcampRef bootcamp) {
         Enrollment enrollment = Enrollment.create(
                 request.personId(),
                 request.bootcampId(),
-                bootcamp.startDate(),
-                bootcamp.endDate()
+                bootcamp.launchdate(),
+                bootcamp.duration()
         );
         return enrollmentRepository.save(enrollment)
                 .map(mapper::toResponse);

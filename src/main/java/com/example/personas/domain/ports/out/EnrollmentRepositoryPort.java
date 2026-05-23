@@ -10,9 +10,9 @@ public interface EnrollmentRepositoryPort {
 
     Mono<Enrollment> save(Enrollment enrollment);
 
-    Flux<Enrollment> findActiveByPerson(UUID personId);
+    Flux<Enrollment> findActiveByPerson(Long personId);
 
-    Flux<Enrollment> findByPerson(UUID personId);
+    Flux<Enrollment> findByPerson(Long personId);
 
 
 

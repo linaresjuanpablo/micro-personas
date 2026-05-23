@@ -7,6 +7,6 @@ import java.util.UUID;
 
 public interface BootcampQueryPort {
 
-    Mono<BootcampRef> getBootcampById(UUID bootcampId);
+    Mono<BootcampRef> getBootcampById(Long bootcampId);
 
 }

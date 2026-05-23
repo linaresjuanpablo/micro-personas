@@ -4,10 +4,10 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public record BootcampRef(
-        UUID bootcampId,
+        Long bootcampId,
         String name,
-        LocalDate startDate,
-        LocalDate endDate
+        LocalDate launchdate,
+        Integer duration
 
 ) {
 }

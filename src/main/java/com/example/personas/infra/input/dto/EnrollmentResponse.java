@@ -5,12 +5,12 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public record EnrollmentResponse(
-        UUID enrollmentId,
-        UUID personId,
-        UUID bootcampId,
+        Long enrollmentId,
+        Long personId,
+        Long bootcampId,
         String status,
-        LocalDate startDate,
-        LocalDate endDate,
+        LocalDate launchdate,
+        Integer duration,
         LocalDateTime createdAt
 
 ) {

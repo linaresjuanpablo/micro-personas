@@ -13,16 +13,16 @@ import java.util.UUID;
 @NoArgsConstructor
 
 public class Enrollment {
-    private UUID id;
-    private UUID personId;
-    private UUID bootcampId;
+    private Long id;
+    private Long personId;
+    private Long bootcampId;
     private String status;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private LocalDate launchdate;
+    private Integer duration;
     private LocalDateTime createdAt;
 
-    public static Enrollment create(UUID personId, UUID bootcampId,
-                                    LocalDate startDate, LocalDate endDate) {
+    public static Enrollment create(Long personId, Long bootcampId,
+                                    LocalDate launchdate, Integer duration) {
         return Enrollment.builder()
                 /*UUID.randomUUID(),
                 personId,
@@ -32,12 +32,11 @@ public class Enrollment {
                 endDate,
                 LocalDateTime.now()
         );*/
-                .id(UUID.randomUUID())
                 .personId(personId)
                 .bootcampId(bootcampId)
                 .status("ACTIVE")
-                .startDate(startDate)
-                .endDate(endDate)
+                .launchdate(launchdate)
+                .duration(duration)
                 .createdAt(LocalDateTime.now())
                 .build();
 
